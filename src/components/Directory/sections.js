@@ -33,6 +33,4 @@ const defaultSections = [
   }
 ];
 
-module.exports = {
-  defaultSections
-}
+export default defaultSections;

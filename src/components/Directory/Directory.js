@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Directory.scss';
-import { defaultSections } from './sections';
+import defaultSections  from './sections';
 import MenuItem from '../Menu-Item/MenuItem';
 
 const Directory = () => {
