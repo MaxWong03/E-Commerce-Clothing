@@ -11,7 +11,6 @@ const FormInput = ({ handleChange, label, ...otherProps }) => {
   });
 
   return (
-
     <div className='group'>
       <input
         className='form-input'
