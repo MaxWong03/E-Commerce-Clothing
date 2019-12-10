@@ -10,11 +10,11 @@ import SignInSignUp from './pages/Sign-in-and-sign-up/SignInAndSignUp';
 function App() {
   return (
     <div>
-      {/* <Switch> */}
+      <Switch>
         <Route exact path='/' component={Homepage} />
         <Route path='/shop' component={ShopPage} />
         <Route path='/signin' component={SignInSignUp} />
-      {/* </Switch> */}
+      </Switch>
     </div>
   );
 }
