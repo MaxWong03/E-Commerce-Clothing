@@ -10,20 +10,19 @@ import Header from './components/Header/Header';
 import { auth } from './firebase/firebase.utils';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState({ currentUser: null });
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     let subscription = null;
     subscription = auth.onAuthStateChanged(user => {
-      setCurrentUser({ currentUser: user });
-      console.log(user);
+      setCurrentUser(user);
     });
     return () => subscription();
   }, []);
 
   return (
     <div>
-      <Header />
+      <Header currentUser={currentUser}/>
       <Switch>
         <Route exact path='/' component={Homepage} />
         <Route path='/shop' component={ShopPage} />
