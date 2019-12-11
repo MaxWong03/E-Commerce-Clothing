@@ -7,7 +7,7 @@ import Homepage from './pages/HomePage/Homepage';
 import ShopPage from './pages/ShopPage/Shoppage';
 import SignInSignUp from './pages/Sign-in-and-sign-up/SignInAndSignUp';
 import Header from './components/Header/Header';
-import { auth } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -16,6 +16,7 @@ function App() {
     let subscription = null;
     subscription = auth.onAuthStateChanged(user => {
       setCurrentUser(user);
+      createUserProfileDocument(user);
     });
     return () => subscription();
   }, []);
