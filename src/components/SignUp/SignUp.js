@@ -57,6 +57,8 @@ const SignUp = () => {
           name='displayName'
           value={displayName}
           onChange={handleChange}
+          label='Display Name'
+          required
         />
 
         <FormInput
