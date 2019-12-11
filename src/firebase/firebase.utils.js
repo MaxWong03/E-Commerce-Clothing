@@ -17,13 +17,16 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
   /**
-   * userRef is a Query Reference Obj
-   * which you do CRUD action
+   * userRef is a Query Reference Obj (Doc Ref Obj because firestore.doc)
+   * 
+   * represent the current place in the db we are querying
+   * 
+   * where you do CRUD action
    */ 
   const userRef = firestore.doc(`users/${userAuth.uid}`);
 
   /**
-   * snapShot is a Query Snapshot
+   * snapShot is a Query Snapshot Obj (from userRef, Doc Snapshot)
    * which gives you the data you are looking for
    */
   const snapShot = await userRef.get();
@@ -41,8 +44,8 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     } catch (err) {
       console.log('error creating user', err.message);
     }
-    return userRef;
   }
+  return userRef;
 };
 
 firebase.initializeApp(config);

@@ -14,16 +14,27 @@ function App() {
 
   useEffect(() => {
     let subscription = null;
-    subscription = auth.onAuthStateChanged(user => {
-      setCurrentUser(user);
-      createUserProfileDocument(user);
+    subscription = auth.onAuthStateChanged(async userAuth => {
+      if (userAuth) {//login
+        const userRef = await createUserProfileDocument(userAuth);
+
+        userRef.onSnapshot(snapShot => {
+          setCurrentUser({
+            id: snapShot.id,
+            ...snapShot.data()
+          })
+        });
+      } else { //logout
+        setCurrentUser(userAuth);
+      }
     });
+    //componentWillUnmount
     return () => subscription();
   }, []);
 
   return (
     <div>
-      <Header currentUser={currentUser}/>
+      <Header currentUser={currentUser} />
       <Switch>
         <Route exact path='/' component={Homepage} />
         <Route path='/shop' component={ShopPage} />
