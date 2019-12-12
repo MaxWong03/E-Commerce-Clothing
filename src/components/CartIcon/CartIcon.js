@@ -7,10 +7,7 @@ import './CartIcon.scss';
 
 const CartIcon = () => {
   const dispatch = useDispatch();
-  const { cartItems } = useSelector(state => {
-    console.log('triggered');
-    return state.cart
-  }, shallowEqual);
+  const { cartItems } = useSelector(state => state.cart, shallowEqual);
   const getItemNumber = cartItemsArr => {
     return cartItemsArr.reduce(
       (accumlator, cartItem) => accumlator + cartItem.quantity,

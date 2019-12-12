@@ -13,7 +13,6 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 function App() {
   const dispatch = useDispatch();
   const { currentUser } = useSelector(state => state.user, shallowEqual);
-  console.log(currentUser)
   useEffect(() => {
     let subscription = null;
     subscription = auth.onAuthStateChanged(async userAuth => {
