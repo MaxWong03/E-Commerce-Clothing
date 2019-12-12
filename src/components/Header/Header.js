@@ -8,8 +8,8 @@ import CartDropDown from '../CartDropDown/CartDropDown';
 import './Header.scss';
 
 const Header = () => {
-  const currentUser = useSelector(state => state.user, shallowEqual);
-  const cart = useSelector(state => state.cart, shallowEqual);
+  const { currentUser } = useSelector(state => state.user, shallowEqual);
+  const { hidden } = useSelector(state => state.cart, shallowEqual);
   return (
     <div className='header'>
       <Link className='logo-container' to='/'>
@@ -41,7 +41,7 @@ const Header = () => {
         <CartIcon />
       </div>
       {
-        cart.hidden && <CartDropDown />
+        hidden && <CartDropDown />
       }
     </div>
   )
