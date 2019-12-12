@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
-
+import React, { useEffect } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { setCurrentUser } from './redux/user/user.action';
 import './App.css';
 
 import Homepage from './pages/HomePage/Homepage';
@@ -10,7 +11,8 @@ import Header from './components/Header/Header';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(null);
+  const dispatch = useDispatch();
+  const currentUser = useSelector(state => state.user, shallowEqual);
 
   useEffect(() => {
     let subscription = null;
@@ -19,18 +21,22 @@ function App() {
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot(snapShot => {
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data()
-          })
+          dispatch(
+            setCurrentUser({
+              id: snapShot.id,
+              ...snapShot.data()
+            })
+          )
         });
       } else { //logout
-        setCurrentUser(userAuth);
+        dispatch(
+          setCurrentUser(userAuth)
+        );
       }
     });
     //componentWillUnmount
     return () => subscription();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
@@ -38,7 +44,14 @@ function App() {
       <Switch>
         <Route exact path='/' component={Homepage} />
         <Route path='/shop' component={ShopPage} />
-        <Route path='/signin' component={SignInSignUp} />
+        <Route path='/signin' render={
+          () => currentUser ? (
+            <Redirect to='/' />
+          ) : (
+            <SignInSignUp />
+          )
+        } 
+        />
       </Switch>
     </div>
   );
