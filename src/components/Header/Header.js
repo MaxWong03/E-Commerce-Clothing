@@ -4,10 +4,12 @@ import { auth } from '../../firebase/firebase.utils';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { shallowEqual, useSelector } from 'react-redux';
 import CartIcon from '../CartIcon/CartIcon';
+import CartDropDown from '../CartDropDown/CartDropDown';
 import './Header.scss';
 
 const Header = () => {
   const currentUser = useSelector(state => state.user, shallowEqual);
+  const cart = useSelector(state => state.cart, shallowEqual);
   return (
     <div className='header'>
       <Link className='logo-container' to='/'>
@@ -38,6 +40,9 @@ const Header = () => {
         }
         <CartIcon />
       </div>
+      {
+        cart.hidden && <CartDropDown />
+      }
     </div>
   )
 };
