@@ -4,10 +4,11 @@ import classNames from 'classnames';
 
 import './CustomButton.scss';
 
-const CustomButton = ({ children, isGoogleSignIn, ...otherProps }) => {
+const CustomButton = ({ children, isGoogleSignIn, inverted, ...otherProps }) => {
 
   const buttonClass = classNames('custom-button', {
-    'google-sign-in custom-button': isGoogleSignIn
+    'google-sign-in custom-button': isGoogleSignIn,
+    'inverted custom-button': inverted
   });
 
   return (
