@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.action';
@@ -8,6 +8,7 @@ import Homepage from './pages/HomePage/Homepage';
 import ShopPage from './pages/ShopPage/Shoppage';
 import SignInSignUp from './pages/Sign-in-and-sign-up/SignInAndSignUp';
 import Header from './components/Header/Header';
+import CheckOutPage from './pages/CheckOutPage/CheckOutPage';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 function App() {
@@ -43,7 +44,8 @@ function App() {
       <Switch>
         <Route exact path='/' component={Homepage} />
         <Route path='/shop' component={ShopPage} />
-        <Route path='/signin' render={
+        <Route exact path='/checkout' component={CheckOutPage}/>
+        <Route exact path='/signin' render={
           () => currentUser ? (
             <Redirect to='/' />
           ) : (
@@ -56,4 +58,4 @@ function App() {
   );
 }
 
-export default App;
+export default memo(App);
