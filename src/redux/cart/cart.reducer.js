@@ -2,7 +2,7 @@ import { CartActionTypes } from './cart.type';
 import { addItemToCart } from './cart.util';
 
 const INITIAL_STATE = {
-  hiddeen: false,
+  hidden: false,
   cartItems: []
 }
 

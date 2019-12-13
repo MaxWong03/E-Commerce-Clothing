@@ -1,12 +1,12 @@
 import React from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
+import { useSelector } from 'react-redux';
 import CustomButton from '../CustomButton/CustomButton';
 import CartItem from '../CartItem/CartItem';
-
+import isEqual from 'lodash/isEqual';
 import './CartDropDown.scss';
 
 const CartDropDown = () => {
-  const { cartItems } = useSelector(state => state.cart, shallowEqual);
+  const cartItems  = useSelector(state => state.cart.cartItems, isEqual);
   return (
     <div className='cart-dropdown'>
       <div className='cart-items'>
