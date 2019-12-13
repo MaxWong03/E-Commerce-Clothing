@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
+import CheckoutItem from '../../components/CheckoutItem/CheckoutItem';
 import isEqual from 'lodash/isEqual';
 import './CheckOutPage.scss';
 
@@ -30,7 +31,9 @@ const CheckOutPage = () => {
         </div>
       </div>
       {
-        cartItems.map(cartItem => cartItem.name)
+        cartItems.map(cartItem => (
+          <CheckoutItem key={cartItem.id} cartItem={cartItem} />
+        ))
       }
       <div className='total'>
         <span>Total: ${calTotal(cartItems)}</span>
