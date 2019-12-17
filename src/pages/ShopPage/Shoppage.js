@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
-
+import React from 'react';
+import { useSelector } from 'react-redux';
+import PreviewCollection from '../../components/Preview-Collection/PreviewCollection';
+import isEqual from 'lodash/isEqual';
 import './Shoppage.scss';
 
-import SHOP_DATA from './collections';
-
-import PreviewCollection from '../../components/Preview-Collection/PreviewCollection';
 
 const ShopPage = () => {
-  const [collections, setCollection] = useState(SHOP_DATA);
-
+  const collections = useSelector(state => state.shop, isEqual);
   return (
     <div className='shop-page'>
       {
