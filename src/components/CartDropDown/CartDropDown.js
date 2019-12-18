@@ -1,16 +1,16 @@
 import React, { memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { selectCartItem } from '../../redux/cart/cart.selector';
 import { useHistory } from 'react-router-dom';
 import CustomButton from '../CustomButton/CustomButton';
 import CartItem from '../CartItem/CartItem';
-import isEqual from 'lodash/isEqual';
 import { toggleCartHidden } from '../../redux/cart/cart.action';
 import './CartDropDown.scss';
 
 const CartDropDown = memo(() => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const cartItems = useSelector(state => state.cart.cartItems, isEqual);
+  const cartItems = useSelector(selectCartItem);
   const onClickAction = () => {
     history.push('/checkout');
     dispatch(toggleCartHidden());

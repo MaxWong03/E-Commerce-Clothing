@@ -1,7 +1,8 @@
 import React, { useEffect, memo } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.action';
+import { selectCurrentUser } from './redux/user/user.selector';
 import './App.css';
 
 import Homepage from './pages/HomePage/Homepage';
@@ -13,7 +14,7 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 function App() {
   const dispatch = useDispatch();
-  const { currentUser } = useSelector(state => state.user, shallowEqual);
+  const { currentUser } = useSelector(selectCurrentUser);
   useEffect(() => {
     let subscription = null;
     subscription = auth.onAuthStateChanged(async userAuth => {
@@ -44,7 +45,7 @@ function App() {
       <Switch>
         <Route exact path='/' component={Homepage} />
         <Route path='/shop' component={ShopPage} />
-        <Route exact path='/checkout' component={CheckOutPage}/>
+        <Route exact path='/checkout' component={CheckOutPage} />
         <Route exact path='/signin' render={
           () => currentUser ? (
             <Redirect to='/' />
