@@ -1,16 +1,12 @@
 import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
+import { selectCartItem, selectCartItemTotal } from '../../redux/cart/cart.selector';
 import CheckoutItem from '../../components/CheckoutItem/CheckoutItem';
-import isEqual from 'lodash/isEqual';
 import './CheckOutPage.scss';
 
 const CheckOutPage = () => {
-  const cartItems = useSelector(state => state.cart.cartItems, isEqual);
-  const calTotal = cartItemsArr => {
-    return cartItemsArr.reduce((accumlator, cartItem) =>
-      accumlator + cartItem.quantity * cartItem.price
-      , 0);
-  }
+  const cartItems = useSelector(selectCartItem);
+  const cartTotal = useSelector(selectCartItemTotal);
   return (
     <div className='checkout-page'>
       <div className='checkout-header'>
@@ -36,7 +32,7 @@ const CheckOutPage = () => {
         ))
       }
       <div className='total'>
-        <span>Total: ${calTotal(cartItems)}</span>
+        <span>Total: ${cartTotal}</span>
       </div>
     </div>
   )
