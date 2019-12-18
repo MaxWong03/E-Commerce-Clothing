@@ -1,13 +1,12 @@
 import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
-import { useSelector, shallowEqual } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { selectCollection } from '../../redux/shop/shop.selector';
 import CollectionItem from '../../components/Collection-Item/CollectionItem';
 
 const CollectionPage = () => {
   const { params: { collectionId } } = useRouteMatch();
-  const { title, items } = useSelector(
-    state => state.shop[collectionId]
-    , shallowEqual);
+  const { title, items } = useSelector(selectCollection(collectionId));
 
   return (
     <div className='collection-page'>
