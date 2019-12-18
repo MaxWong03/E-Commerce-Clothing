@@ -1,11 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { selectDirectory } from '../../redux/directory/directory.selector';
 import './Directory.scss';
 import MenuItem from '../Menu-Item/MenuItem';
-import isEqual from 'lodash/isEqual';
 
 const Directory = () => {
-  const sections = useSelector(state => state.directory, isEqual);
+  const sections = useSelector(selectDirectory);
   return (
     <div className='directory-menu'>
       {
