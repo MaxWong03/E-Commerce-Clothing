@@ -39,7 +39,7 @@ export const CheckoutPageContainer = styled.div`
   margin: 50px auto 0;
 `
 
-export const StripeContainer = styled.div`
+export const StripeCheckoutContainer = styled(StripeCheckoutButton)`
   margin-left: auto;
   margin-top: 50px;
 `

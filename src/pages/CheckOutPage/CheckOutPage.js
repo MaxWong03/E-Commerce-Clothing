@@ -2,14 +2,14 @@ import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCartItem, selectCartItemTotal } from '../../redux/cart/cart.selector';
 import CheckoutItem from '../../components/CheckoutItem/CheckoutItem';
-import StripeCheckoutButton from '../../components/StripeButton/StripeButton';
 
 import {
   TestWarningContainer,
   TotalContainer,
   HeaderBlockContainer,
   CheckoutHeaderContainer,
-  CheckoutPageContainer
+  CheckoutPageContainer,
+  StripeCheckoutContainer
 } from './CheckoutPage.styles';
 
 const CheckOutPage = () => {
@@ -52,7 +52,7 @@ const CheckOutPage = () => {
           </div>
         }
       />
-      <StripeCheckoutButton price={cartTotal} />
+      <StripeCheckoutContainer price={cartTotal} />
     </CheckoutPageContainer>
   )
 }
