@@ -5,6 +5,8 @@ import './MenuItem.scss';
 
 import classNames from 'classnames';
 
+import { BackgroundImageContainer, ContentContainer, TitleContainer, SubtitleContainer } from './MenuItem.styles';
+
 const MenuItem = ({ title, imageUrl, size, linkUrl }) => {
   const history = useHistory();
   const match = useRouteMatch();
@@ -17,16 +19,17 @@ const MenuItem = ({ title, imageUrl, size, linkUrl }) => {
       className={menuItem}
       onClick={() => history.push(`${match.url}${linkUrl}`)}
     >
-      <div
-        className='background-image'
-        style={{
-          backgroundImage: `url(${imageUrl})`
-        }}
+      <BackgroundImageContainer
+        imageUrl={imageUrl}
       />
-      <div className='content'>
-        <h1 className='title'>{title.toUpperCase()}</h1>
-        <span className='subtitle'>SHOP NOW</span>
-      </div>
+      <ContentContainer>
+        <TitleContainer
+          children={title.toUpperCase()}
+        />
+        <SubtitleContainer 
+          children={'SHOP NOW'}
+        />
+      </ContentContainer>
     </div>
   );
 }
