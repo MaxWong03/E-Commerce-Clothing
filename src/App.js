@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.action';
 import { selectCurrentUser } from './redux/user/user.selector';
+import { selectCollectionForPreview } from './redux/shop/shop.selector';
 import './App.css';
 
 import Homepage from './pages/HomePage/Homepage';
@@ -10,15 +11,16 @@ import ShopPage from './pages/ShopPage/Shoppage';
 import SignInSignUp from './pages/Sign-in-and-sign-up/SignInAndSignUp';
 import Header from './components/Header/Header';
 import CheckOutPage from './pages/CheckOutPage/CheckOutPage';
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument, addCollectionAndDocuments } from './firebase/firebase.utils';
 
 function App() {
-  const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
+  const collectionArray = useSelector(selectCollectionForPreview);
+  const dispatch = useDispatch();
   useEffect(() => {
     let subscription = null;
     subscription = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {//login
+      if (userAuth) { //if the user is signed in 
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot(snapShot => {
@@ -29,15 +31,16 @@ function App() {
             })
           )
         });
-      } else { //logout
-        dispatch(
-          setCurrentUser(userAuth)
-        );
       }
+      dispatch(
+        setCurrentUser(userAuth)
+      );
+      addCollectionAndDocuments('collections', collectionArray);
+
     });
     //componentWillUnmount
     return () => subscription();
-  }, [dispatch]);
+  }, [dispatch, collectionArray]);
 
   return (
     <div>
