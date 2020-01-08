@@ -22,7 +22,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
    * represent the current place in the db we are querying
    * 
    * where you do CRUD action
-   */ 
+   */
   const userRef = firestore.doc(`users/${userAuth.uid}`);
 
   /**
@@ -51,7 +51,7 @@ firebase.initializeApp(config);
 
 export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
   const collectionRef = firestore.collection(collectionKey);
- 
+
   const batch = firestore.batch();
   objectsToAdd.forEach(obj => {
     const newDocRef = collectionRef.doc();
@@ -59,6 +59,21 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
   })
 
   return await batch.commit();
+}
+
+export const convertCollectionsSnapshotToMap = collections => {
+  const transformedCollection = collections.docs.map(doc => {
+    const { title, items } = doc.data();
+
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items
+    }
+  });
+
+  return transformedCollection;
 }
 
 export const auth = firebase.auth();
