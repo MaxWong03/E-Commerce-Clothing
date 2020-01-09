@@ -7,10 +7,10 @@ export const selectShop = createSelector(
 
 export const selectCollectionForPreview = createSelector(
   [selectShop],
-  shop => Object.entries(shop.collections)
+  shop => shop.collections ? Object.entries(shop.collections) : []
 )
 
 export const selectCollection = collectionId => createSelector(
   [selectShop],
-  collections => collections[collectionId]
+  shop => shop.collections ? shop.collections[collectionId] : null
 )
