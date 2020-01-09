@@ -24,6 +24,8 @@ const ShopPage = () => {
       dispatch(updateCollections(collectionsMap));
       setLoading(false);
     })
+
+    return () => unsubscribeFromSnapshot();
   }, [dispatch]);
 
   return (
